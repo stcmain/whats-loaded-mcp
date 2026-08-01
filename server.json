@@ -6,15 +6,16 @@
     "url": "https://github.com/stcmain/whats-loaded-mcp",
     "source": "github"
   },
-  "version": "0.2.1",
+  "version": "0.2.2",
   "packages": [
     {
       "registryType": "npm",
       "identifier": "whats-loaded-mcp",
-      "version": "0.2.1",
+      "version": "0.2.2",
       "transport": {
         "type": "stdio"
       }
     }
-  ]
+  ],
+  "websiteUrl": "https://shifttheculture.media/agent-tools"
 }
