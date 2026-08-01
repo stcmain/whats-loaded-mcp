@@ -1,0 +1,40 @@
+{
+  "manifest_version": "0.2",
+  "name": "whats-loaded-mcp",
+  "display_name": "What's Loaded",
+  "version": "0.1.0",
+  "description": "Shows what is consuming your agent's context window before a session starts.",
+  "long_description": "Reads the agent config surface on disk and reports what loads before the first message: always-loaded skill descriptions ranked by token cost, skills installed more than once under different names, CLAUDE.md/AGENTS.md sizes including files their @import lines pull in, and every MCP server configured across clients. Read-only by construction: no child processes, no network, and no filesystem path is ever built from model input.",
+  "author": {
+    "name": "Zachary Pampu",
+    "email": "info@shifttheculture.media",
+    "url": "https://shifttheculture.media"
+  },
+  "homepage": "https://github.com/stcmain/whats-loaded-mcp",
+  "documentation": "https://github.com/stcmain/whats-loaded-mcp#readme",
+  "support": "https://github.com/stcmain/whats-loaded-mcp/issues",
+  "license": "MIT",
+  "keywords": [
+    "mcp",
+    "claude-code",
+    "context-window",
+    "token-budget",
+    "skills",
+    "agents"
+  ],
+  "server": {
+    "type": "node",
+    "entry_point": "dist/index.js",
+    "mcp_config": {
+      "command": "node",
+      "args": [
+        "${__dirname}/dist/index.js"
+      ]
+    }
+  },
+  "compatibility": {
+    "runtimes": {
+      "node": ">=18"
+    }
+  }
+}
