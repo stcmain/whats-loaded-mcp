@@ -23,8 +23,16 @@ import { createHash } from "node:crypto";
 import { homedir } from "node:os";
 import { join, basename, dirname, resolve, isAbsolute } from "node:path";
 
-const VERSION = "0.1.0";
+const VERSION = "0.2.3";
 const HOME = homedir();
+
+/**
+ * The directory treated as "the project" for project-scoped skills, memory
+ * files and `.mcp.json`. Defaults to the working directory, but a server
+ * launched by a desktop client inherits that client's working directory, which
+ * is rarely the project the user is asking about — hence the override.
+ */
+const projectRoot = (): string => process.env.WL_PROJECT_ROOT?.trim() || process.cwd();
 
 /**
  * Characters per token. English prose on GPT/Claude-family tokenizers averages
@@ -208,7 +216,7 @@ function scanSkills(): SkillScan {
   addFrom(join(HOME, ".claude", "skills"), "personal");
 
   // 2. Project skills — loaded when working in this directory.
-  const cwd = process.cwd();
+  const cwd = projectRoot();
   const projectSkillDir = join(cwd, ".claude", "skills");
   const hasProject = existsSync(projectSkillDir);
   if (hasProject) addFrom(projectSkillDir, "project");
@@ -330,7 +338,7 @@ function scanMemoryFiles(): MemFile[] {
     }
   };
 
-  const cwd = process.cwd();
+  const cwd = projectRoot();
   const candidates = [
     join(HOME, ".claude", "CLAUDE.md"),
     join(HOME, ".claude", "AGENTS.md"),
@@ -374,7 +382,7 @@ function scanMcpServers(): { entries: McpEntry[]; scanned: string[]; missing: st
 
   const configs = [
     ...MCP_CONFIGS,
-    { client: "project (.mcp.json)", path: join(process.cwd(), ".mcp.json"), key: "mcpServers" },
+    { client: "project (.mcp.json)", path: join(projectRoot(), ".mcp.json"), key: "mcpServers" },
   ];
 
   for (const { client, path, key } of configs) {

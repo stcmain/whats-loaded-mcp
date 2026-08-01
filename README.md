@@ -78,7 +78,29 @@ npm install && npm run build
 Published as [`whats-loaded-mcp`](https://www.npmjs.com/package/whats-loaded-mcp) on npm and as
 `io.github.stcmain/whats-loaded-mcp` in the [MCP Registry](https://registry.modelcontextprotocol.io/).
 
-No configuration. No environment variables.
+### Configuration
+
+One optional setting, and it takes no credentials.
+
+| Variable | Default | Meaning |
+|---|---|---|
+| `WL_PROJECT_ROOT` | the server's working directory | Directory treated as "the project" for project-scoped skills, memory files and `.mcp.json`. |
+
+Personal and plugin scopes are read from `~/.claude` either way. Setting this is
+worth it when a desktop client launches the server: the process inherits *that
+client's* working directory, which is rarely the project you are asking about.
+
+```json
+{
+  "mcpServers": {
+    "whats-loaded": {
+      "command": "npx",
+      "args": ["-y", "whats-loaded-mcp"],
+      "env": { "WL_PROJECT_ROOT": "/path/to/the/project" }
+    }
+  }
+}
+```
 
 ## What it counts, and what it refuses to guess
 
