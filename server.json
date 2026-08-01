@@ -1,12 +1,23 @@
 {
   "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
   "name": "io.github.stcmain/whats-loaded-mcp",
+  "title": "What's Loaded",
   "description": "What fills your agent's context window before a session starts: skill descriptions, memory files.",
+  "websiteUrl": "https://shifttheculture.media/agent-tools",
+  "icons": [
+    {
+      "src": "https://raw.githubusercontent.com/stcmain/whats-loaded-mcp/main/logo.png",
+      "mimeType": "image/png",
+      "sizes": [
+        "400x400"
+      ]
+    }
+  ],
   "repository": {
     "url": "https://github.com/stcmain/whats-loaded-mcp",
     "source": "github"
   },
-  "version": "0.2.3",
+  "version": "0.2.4",
   "packages": [
     {
       "registryType": "npm",
@@ -16,6 +27,5 @@
         "type": "stdio"
       }
     }
-  ],
-  "websiteUrl": "https://shifttheculture.media/agent-tools"
+  ]
 }
