@@ -1,5 +1,9 @@
 # whats-loaded-mcp
 
+[![npm](https://img.shields.io/npm/v/whats-loaded-mcp)](https://www.npmjs.com/package/whats-loaded-mcp)
+[![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
+[![stcmain/whats-loaded-mcp MCP server](https://glama.ai/mcp/servers/stcmain/whats-loaded-mcp/badges/score.svg)](https://glama.ai/mcp/servers/stcmain/whats-loaded-mcp)
+
 **Your context window is already half spent before you type.** An MCP server that shows what is consuming it — every skill description, every memory file and its hidden `@imports`, every configured MCP server — ranked by cost, with duplicates called out.
 
 ## Why
