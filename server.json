@@ -17,12 +17,12 @@
     "url": "https://github.com/stcmain/whats-loaded-mcp",
     "source": "github"
   },
-  "version": "0.2.4",
+  "version": "0.2.5",
   "packages": [
     {
       "registryType": "npm",
       "identifier": "whats-loaded-mcp",
-      "version": "0.2.3",
+      "version": "0.2.5",
       "transport": {
         "type": "stdio"
       }
