@@ -1,0 +1,20 @@
+{
+  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
+  "name": "io.github.stcmain/whats-loaded-mcp",
+  "description": "Shows what consumes your agent's context window before the conversation starts: skill descriptions, memory files and their imports, and configured MCP servers — ranked, with duplicates called out.",
+  "repository": {
+    "url": "https://github.com/stcmain/whats-loaded-mcp",
+    "source": "github"
+  },
+  "version": "0.1.0",
+  "packages": [
+    {
+      "registryType": "npm",
+      "identifier": "whats-loaded-mcp",
+      "version": "0.1.0",
+      "transport": {
+        "type": "stdio"
+      }
+    }
+  ]
+}

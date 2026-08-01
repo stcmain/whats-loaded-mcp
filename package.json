@@ -1,0 +1,53 @@
+{
+  "name": "whats-loaded-mcp",
+  "version": "0.1.0",
+  "mcpName": "io.github.stcmain/whats-loaded-mcp",
+  "description": "MCP server that shows what is consuming your agent's context window before the conversation starts — skill descriptions, memory files and their imports, and configured MCP servers — ranked, with duplicates called out.",
+  "type": "module",
+  "bin": {
+    "whats-loaded-mcp": "dist/index.js"
+  },
+  "main": "dist/index.js",
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "build": "tsc && chmod +x dist/index.js",
+    "prepare": "npm run build",
+    "start": "node dist/index.js",
+    "inspect": "npx @modelcontextprotocol/inspector node dist/index.js"
+  },
+  "keywords": [
+    "mcp",
+    "model-context-protocol",
+    "claude",
+    "claude-code",
+    "agents",
+    "context-window",
+    "token-budget",
+    "skills"
+  ],
+  "author": "Zachary Pampu <info@shifttheculture.media>",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/stcmain/whats-loaded-mcp.git"
+  },
+  "homepage": "https://github.com/stcmain/whats-loaded-mcp#readme",
+  "bugs": {
+    "url": "https://github.com/stcmain/whats-loaded-mcp/issues"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.27.1",
+    "zod": "^3.25.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.0.0",
+    "typescript": "^5.6.0"
+  }
+}
