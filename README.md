@@ -143,6 +143,19 @@ The rest of that tooling is paid:
 
 The server above stays free and MIT either way — it has no upsell in it, no telemetry, and no dependency on the paid kits.
 
+## Sponsors
+
+This server is MIT and stays MIT. There is no pro edition, no telemetry, and
+nothing held back from the free build. Sponsorship is how the maintenance gets
+paid for without any of that changing.
+
+**No sponsors yet — the first slot is open.** Company sponsors get their name or
+logo in this section, in the two sibling servers, and on the sponsor page.
+Tiers, exactly what the placement is, and what it explicitly does not buy:
+**https://shifttheculture.media/sponsor**
+
+Individuals: https://paypal.me/ShiftTheCultureLLC — any amount, no perks, no tier.
+
 ## License
 
 MIT © Zachary Pampu
