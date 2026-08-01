@@ -1,0 +1,10 @@
+# Sponsorship keeps whats-running-mcp, whats-loaded-mcp and whats-inherited-mcp
+# maintained, published and MIT.
+#
+# It does NOT buy a feature out of the free build, does NOT add telemetry, and
+# does NOT change the licence. There is no pro edition of these servers.
+#
+# Company sponsor slots (name/logo in this README): https://shifttheculture.media/sponsor
+custom:
+  - https://shifttheculture.media/sponsor
+  - https://paypal.me/ShiftTheCultureLLC
