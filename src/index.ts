@@ -22,8 +22,11 @@ import { readFileSync, readdirSync, statSync, realpathSync, existsSync } from "n
 import { createHash } from "node:crypto";
 import { homedir } from "node:os";
 import { join, basename, dirname, resolve, isAbsolute } from "node:path";
+import { createRequire } from "node:module";
 
-const VERSION = "0.2.3";
+// Read from package.json so the version reported to clients can never drift
+// from the published version. `npm version` only edits package.json.
+const VERSION: string = createRequire(import.meta.url)("../package.json").version;
 const HOME = homedir();
 
 /**
