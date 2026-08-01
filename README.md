@@ -134,7 +134,11 @@ This server's output goes straight into a model's context, so the interesting ri
 
 Built by [Shift The Culture](https://shifttheculture.media/?utm_source=github&utm_medium=readme&utm_campaign=whats-loaded-mcp) — we run a one-person company on AI agents and ship the tooling we needed ourselves. This server is free and MIT-licensed, no strings.
 
-Its sibling, [**whats-running-mcp**](https://github.com/stcmain/whats-running-mcp), does the same job for live process state: what is *actually* running on the box, instead of what an old transcript claims. Also free, also MIT.
+It has three siblings, all also free and MIT:
+
+- [**whats-running-mcp**](https://github.com/stcmain/whats-running-mcp) — what is *actually* running on the box right now, instead of what an old transcript claims.
+- [**whats-inherited-mcp**](https://github.com/stcmain/whats-inherited-mcp) — what a checkout you did not write tells your agent to do: instruction files, hooks, and the MCP servers it declares.
+- [**whats-allowed-mcp**](https://github.com/stcmain/whats-allowed-mcp) — what your agent can do without asking you: merged permission rules, which settings file wins, and the rules your client accepts and then ignores.
 
 The rest of that tooling is paid:
 
