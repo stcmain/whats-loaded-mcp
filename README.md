@@ -30,7 +30,7 @@ For scale: ~47.7% of a 200K window, ~9.5% of a 1M window.
 > **79 duplicate skill names** are costing ~9,435 tokens.
 ```
 
-79 of those skills were installed twice under two different names (`dotenv` and `rohitg00__dotenv`, `agent-browser` three times from three authors). That is free savings that was invisible until something counted it.
+79 names were installed more than once — the same skill picked up from several sources, like `agent-browser` appearing three times from three authors. But a shared name does not always mean a redundant copy: on that install only **34 groups were byte-identical** (~1,523 tokens genuinely recoverable), while **45 shared a name and differed in content** — different work wearing the same label, where deleting a copy loses something. `duplicate_skills` compares content hashes and reports those two groups separately, so the cleanup advice is safe to act on rather than merely impressive.
 
 ## Tools
 
