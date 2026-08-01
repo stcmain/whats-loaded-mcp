@@ -19,6 +19,7 @@ import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js";
 import { z } from "zod";
 import { readFileSync, readdirSync, statSync, realpathSync, existsSync } from "node:fs";
+import { createHash } from "node:crypto";
 import { homedir } from "node:os";
 import { join, basename, dirname, resolve, isAbsolute } from "node:path";
 
@@ -118,6 +119,12 @@ interface Skill {
   cost: number; // always-loaded chars (name + description + overhead)
   path: string;
   source: string; // "personal" | "project" | "plugin:<id>"
+  /**
+   * sha256 of the raw SKILL.md. Two skills sharing a name are only safe to
+   * dedupe when this matches — same-name copies frequently diverge in content,
+   * and deleting one of those loses work rather than saving tokens.
+   */
+  contentHash: string;
 }
 
 /**
@@ -147,6 +154,7 @@ function parseSkill(path: string, source: string): Skill | null {
     cost: name.length + desc.length + SKILL_ENTRY_OVERHEAD,
     path,
     source,
+    contentHash: createHash("sha256").update(text).digest("hex"),
   };
 }
 
@@ -463,7 +471,8 @@ server.registerTool(
     if (dupNames > 0) {
       lines.push(
         `> **${dupNames} duplicate skill names** are costing ~${fmt(estTokens(dupWaste))} tokens. ` +
-          `Run \`duplicate_skills\` — this is usually pure waste from the same skill installed twice.\n`,
+          `Run \`duplicate_skills\` — it separates byte-identical copies (safe to remove) from ` +
+          `same-name skills whose content differs (deleting those loses work).\n`,
       );
     }
     if (onDiskNotLoaded > 0) {
@@ -528,7 +537,9 @@ server.registerTool(
     title: "Duplicate skills",
     description:
       "Skills whose name appears more than once (same skill installed from several sources). " +
-      "Every copy pays full description cost in every session — this is usually free savings.",
+      "Every copy pays full description cost in every session. Copies are compared by content hash: " +
+      "identical copies are safe to remove, same-name copies that DIFFER are flagged for review because " +
+      "deleting one would lose work.",
     inputSchema: {},
   },
   async () => {
@@ -545,19 +556,50 @@ server.registerTool(
 
     if (dups.length === 0) return text("No duplicate skill names found.");
 
-    // Waste = every copy beyond the first.
-    const waste = dups.reduce((a, [, v]) => a + v.slice(1).reduce((x, s) => x + s.cost, 0), 0);
+    // A shared name does NOT mean a redundant copy. Compare content hashes:
+    // identical copies are genuinely free to remove; same-name copies whose
+    // content differs are distinct work wearing the same label, and deleting
+    // one loses it. Only the identical ones are counted as recoverable.
+    const identical: [string, Skill[]][] = [];
+    const divergent: [string, Skill[]][] = [];
+    for (const entry of dups) {
+      const hashes = new Set(entry[1].map((c) => c.contentHash));
+      (hashes.size === 1 ? identical : divergent).push(entry);
+    }
+
+    // Recoverable = every copy beyond the first, identical groups ONLY.
+    const waste = identical.reduce((a, [, v]) => a + v.slice(1).reduce((x, s) => x + s.cost, 0), 0);
 
     const lines: string[] = [];
-    lines.push(`# Duplicate skills — ${dups.length} names installed more than once\n`);
-    lines.push(`Removing the redundant copies would free roughly **${fmt(estTokens(waste))} tokens** per session.\n`);
-    lines.push("| Skill | Copies | Locations |");
-    lines.push("|---|---:|---|");
-    for (const [name, copies] of dups.slice(0, 60)) {
-      const locs = copies.map((c) => c.path.replace(HOME, "~")).join("<br>");
-      lines.push(`| ${name} | ${copies.length} | ${locs} |`);
+    lines.push(`# Duplicate skill names — ${dups.length} names installed more than once\n`);
+    lines.push(
+      `**${identical.length} are byte-identical** and safe to dedupe, freeing roughly ` +
+        `**${fmt(estTokens(waste))} tokens** per session. ` +
+        `**${divergent.length} share a name but differ in content** — those are different skills wearing the ` +
+        `same label, and deleting one loses work. Review those by hand; they are not counted above.\n`,
+    );
+
+    if (identical.length) {
+      lines.push(`## Safe to dedupe — identical copies (${identical.length})\n`);
+      lines.push("| Skill | Copies | Locations |");
+      lines.push("|---|---:|---|");
+      for (const [name, copies] of identical.slice(0, 40)) {
+        const locs = copies.map((c) => c.path.replace(HOME, "~")).join("<br>");
+        lines.push(`| ${name} | ${copies.length} | ${locs} |`);
+      }
+      if (identical.length > 40) lines.push(`\n…and ${identical.length - 40} more identical groups.`);
     }
-    if (dups.length > 60) lines.push(`\n…and ${dups.length - 60} more.`);
+
+    if (divergent.length) {
+      lines.push(`\n## Same name, different content — review before deleting (${divergent.length})\n`);
+      lines.push("| Skill | Copies | Locations |");
+      lines.push("|---|---:|---|");
+      for (const [name, copies] of divergent.slice(0, 40)) {
+        const locs = copies.map((c) => c.path.replace(HOME, "~")).join("<br>");
+        lines.push(`| ${name} | ${copies.length} | ${locs} |`);
+      }
+      if (divergent.length > 40) lines.push(`\n…and ${divergent.length - 40} more divergent groups.`);
+    }
     lines.push(`\n_${ESTIMATE_NOTE}_`);
     return text(lines.join("\n"));
   },
