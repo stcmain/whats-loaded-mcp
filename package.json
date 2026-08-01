@@ -1,6 +1,6 @@
 {
   "name": "whats-loaded-mcp",
-  "version": "0.2.4",
+  "version": "0.2.5",
   "mcpName": "io.github.stcmain/whats-loaded-mcp",
   "description": "MCP server that shows what is consuming your agent's context window before the conversation starts — skill descriptions, memory files and their imports, and configured MCP servers — ranked, with duplicates called out.",
   "type": "module",
