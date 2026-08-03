@@ -70,8 +70,11 @@ jobs:
           npm pack --dry-run --json > pack.json
           node -e "
             const files = require('./pack.json')[0].files.map(f => f.path).sort();
-            const expected = ['LICENSE', 'README.md', 'dist/index.js', 'package.json'];
-            const unexpected = files.filter(f => !expected.includes(f));
+            // Packages compile a varying number of modules into dist/, so allow
+            // any dist/*.js rather than pinning a single entry point.
+            const allowed = f => ['LICENSE','README.md','package.json'].includes(f)
+                              || /^dist\/[\w.-]+\.js$/.test(f);
+            const unexpected = files.filter(f => !allowed(f));
             if (unexpected.length) {
               console.error('Unexpected files in tarball:', unexpected);
               process.exit(1);
