@@ -143,7 +143,9 @@ It has three siblings, all also free and MIT:
 The rest of that tooling is paid:
 
 - **[Agent Fleet Ops Kit](https://stcai.gumroad.com/l/agent-fleet-ops-kit?wanted=true&utm_source=github&utm_medium=readme&utm_campaign=whats-loaded-mcp)** ($29) — the other failure modes of running three or four agents on one box: two sessions editing the same checkout, a dev server nobody owns (so the agent tests a different app than it edits), and MCP servers leaked from crashed sessions that hold ports and RAM for weeks.
+  Prefer PayPal? Same kit on [Payhip](https://payhip.com/b/o9q0f).
 - **[Agent Reliability Kit](https://stcai.gumroad.com/l/agent-reliability-kit?wanted=true&utm_source=github&utm_medium=readme&utm_campaign=whats-loaded-mcp)** ($29) — a Stop hook and two CLIs that block a turn when an agent claims "done" against a repo, URL, or build that was never actually checked.
+  Prefer PayPal? Same kit on [Payhip](https://payhip.com/b/i0sSw).
 
 The server above stays free and MIT either way — it has no upsell in it, no telemetry, and no dependency on the paid kits.
 
