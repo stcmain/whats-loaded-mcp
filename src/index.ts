@@ -512,7 +512,7 @@ server.registerTool(
       "list is where trimming pays off most.",
     inputSchema: {
       limit: z.number().int().min(1).max(200).default(25).describe("How many skills to return"),
-      filter: z.string().optional().describe("Only include skills whose name contains this substring"),
+      filter: z.string().max(100).optional().describe("Only include skills whose name contains this substring"),
     },
   },
   async ({ limit, filter }) => {
