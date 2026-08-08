@@ -44,6 +44,8 @@ For scale: ~47.7% of a 200K window, ~9.5% of a 1M window.
 
 ## Install
 
+**Claude Desktop (one-click, no terminal):** download the latest `whats-loaded-mcp-<version>.dxt` from [Releases](https://github.com/stcmain/whats-loaded-mcp/releases) and open it with Claude Desktop (double-click, or Settings → Extensions → Install Extension…). The server and its dependencies ship inside the bundle — no npm, no Node install.
+
 Register with Claude Code (available in every session):
 
 ```bash
