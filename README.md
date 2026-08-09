@@ -134,7 +134,7 @@ This server's output goes straight into a model's context, so the interesting ri
 
 ## Who makes this
 
-Built by [Shift The Culture](https://shifttheculture.media/?utm_source=github&utm_medium=readme&utm_campaign=whats-loaded-mcp) — we run a one-person company on AI agents and ship the tooling we needed ourselves. This server is free and MIT-licensed, no strings.
+Built by [Shift The Culture](https://shifttheculture.media/agent-tools?utm_source=github&utm_medium=readme&utm_campaign=whats-loaded-mcp) — we run a one-person company on AI agents and ship the tooling we needed ourselves. This server is free and MIT-licensed, no strings.
 
 It has three siblings, all also free and MIT:
 
